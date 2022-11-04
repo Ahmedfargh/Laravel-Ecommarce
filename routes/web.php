@@ -18,3 +18,4 @@ Route::get("/login",function(){
     return view("login");
 })->name("loginpage");
 Route::get("/admin/add",[adminController::class,"add_admin"])->name("add_admin");
+Route::get("/admin/get/all",[adminController::class,"get_all"])->name("get_admins_all");
