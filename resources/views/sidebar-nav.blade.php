@@ -1,12 +1,15 @@
 <nav class="navbar-default navbar-side" role="navigation">
     <div class="sidebar-collapse">
-        <ul class="nav" id="main-menu">
-                                         
-            
+        <ul class="nav" id="main-menu">   
             <li>
                 <div class="user-img-div">
                     @if ($profile_img!=null)
-                    <img src="{{asset($profile_img[0]["img"])}}" class="img-thumbnail" />   
+                        @if ($Type=="Product")
+                        <img src="{{asset($profile_img)}}" class="img-thumbnail" />
+                            
+                        @else
+                            <img src="{{asset($profile_img[0]["img"])}}" class="img-thumbnail" />
+                        @endif 
                     @else
                         <img src="assets/img/user.png" class="img-thumbnail" />   
                     @endif
@@ -19,7 +22,10 @@
 
             </li>
             <li>
-                <a class="active-menu" href="blank.html"><i class="fa fa-square-o "></i>Blank Page</a>
+                <a class="active-menu" href="#"><i class="fa fa-square-o "></i>الرئيسية</a>
+            </li>
+            <li>
+                <a class="" href='{{route("product_page")}}''><i class="fa fa-square-o "></i>صفحة المنتجات</a>
             </li>
             <li>
                 <a  href="index.html"><i class="fa fa-dashboard "></i>Dashboard</a>

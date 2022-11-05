@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 session_start();
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use Illuminate\Support\Facades\DB;
 class adminController extends Controller
 {
     //admin login method
@@ -32,6 +33,23 @@ class adminController extends Controller
     }
     function get_all(Request $req){
         $admins=new Admin;
-        return response()->json(Amind::all());
+        return response()->json(Admin::all());
+    }
+    function count_admins(Request $req){
+        return json_encode([0=>DB::table("admins")->count(),1=>DB::table("clients")->count(),2=>DB::table("carts")->count()]);
+    }
+    function load_admin_data(){
+        if(isset($_SESSION["admin_id"])){
+            $admin=Admin::where("id",$_SESSION["admin_id"]);
+            return ["adminName"=>$admin->get("name"),"profile_img"=>$admin->get("img"),"Type"=>"Product"];
+        }else{
+            return false;
+        }
+    }
+    function get_to_product_page(Request $req){
+        $admin_data=$this->load_admin_data();
+        if($admin_data){
+            return view("products",$admin_data);
+        }
     }
 }
