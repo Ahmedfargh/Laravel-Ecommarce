@@ -5,8 +5,7 @@
                 <div class="user-img-div">
                     @if ($profile_img!=null)
                         @if ($Type=="Product")
-                        <img src="{{asset($profile_img)}}" class="img-thumbnail" />
-                            
+                        <img src="{{asset($profile_img)}}" class="img-thumbnail"id='done' />
                         @else
                             <img src="{{asset($profile_img[0]["img"])}}" class="img-thumbnail" />
                         @endif 

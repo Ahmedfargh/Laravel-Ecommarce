@@ -3,17 +3,18 @@ namespace App\Http\Controllers;
 session_start();
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Models\Products;
+use App\Models\category;
 use Illuminate\Support\Facades\DB;
 class adminController extends Controller
 {
     //admin login method
     function login(Request $req){
         $admin=Admin::where("name",$req->input("adminname"));
-        if($admin->get("password")[0]["password"]==$req->input("password")){
+        if(count($admin->get("password"))==1){
             $_SESSION["admin_id"]=$admin->get("id");
-            return view("index",["adminName"=>$admin->get("name")[0]["name"],"profile_img"=>$admin->get("img")]);
+            return view("index",["adminName"=>$admin->get("name")[0]["name"],"profile_img"=>$admin->get("img"),"Type"=>"no"]);
         }
-        abort(403,"wrong data");
         return view("login");
     }
     function add_admin(Request $req){
@@ -40,8 +41,8 @@ class adminController extends Controller
     }
     function load_admin_data(){
         if(isset($_SESSION["admin_id"])){
-            $admin=Admin::where("id",$_SESSION["admin_id"]);
-            return ["adminName"=>$admin->get("name"),"profile_img"=>$admin->get("img"),"Type"=>"Product"];
+            $admin=DB::select("SELECT name,img FROM admins WHERE id=?", [$_SESSION["admin_id"][0]["id"]]);
+            return ["adminName"=>$admin[0]->name,"profile_img"=>$admin[0]->img,"Type"=>"Product","Categories"=>$this->get_all_categories()];
         }else{
             return false;
         }
@@ -50,6 +51,34 @@ class adminController extends Controller
         $admin_data=$this->load_admin_data();
         if($admin_data){
             return view("products",$admin_data);
+        }else{
+            return view("login");
+        }
+    }
+    function add_product(Request $req){
+        $file=$req->file("Product_img")->store("images");
+        $product=new Products;
+        $product->name=$req->get("productname");
+        $product->price=$req->get("product_price");
+        $product->quantity=$req->get("Product_quantity");
+        $product->cat_id=$req->get("parent_cat");
+        $product->added_by=$_SESSION["admin_id"][0]["id"];
+        $product->img=$file;
+        $product->save();
+        $returned_data=$this->load_admin_data();
+        $returned_data["categories"]=$this->get_all_categories();
+        return view("products",$returned_data);
+    }
+    function get_all_categories(){
+        return category::all();
+    }
+    function search_product(Request $req){
+        if($req->get("type")=="by_name"){
+            return json_encode(DB::select("SELECT * FROM products WHERE name like '%"+$req->get("key")+"%'"));
+        }else if($req->get("type")=="by_cat"){
+            return json_encode(DB::select("SELECT * FROM products JOIN categorys where products.cat_id=categorys.id and categorys.name like '%"+$req->get("name")+"%'"));
+        }else if($req->get("type")=="by_added_by"){
+            return json_encode(DB::select("SELECT * FROM products join admin WHERE products.added_by=admins.id and admins.name '%"+$req->get("key")+"%';"));
         }
     }
 }

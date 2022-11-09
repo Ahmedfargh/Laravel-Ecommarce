@@ -1,5 +1,4 @@
 @include('header')
-<center><h1>product page</h1></center>
     <div id="wrapper">
         <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -25,39 +24,11 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h1 class="page-head-line">مرحبا بك 
-                            
                             {{$adminName}}
                         </h1>
-                        <h1 class="page-subhead-line">هنا التحكم الكامل بالموقع</h1>
-
                     </div>
                 </div>
-                <div class='row'>
-                    <div class="col-md-4">
-                        <div class="main-box mb-red">
-                            <a href="#">
-                                <i class="fa fa-bolt fa-5x"></i>
-                                <h5 id='admin_counter'>عدد الأدمن</h5>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="main-box mb-red">
-                            <a href="#">
-                                <i class="fa fa-bolt fa-5x"></i>
-                                <h5 id='user_counters'>عدد المستخدمين</h5>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="main-box mb-dull">
-                            <a href="#">
-                                <i class="fa fa-plug fa-5x"></i>
-                                <h5 id='under_shopping_user'>عدد المستخدممين الذين يتسوقون الأن</h5>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                
                 <!-- /. ROW  -->
                 <div class="row">
                     <div class="col-12">
@@ -67,28 +38,42 @@
                                         إضافة أدمن
                                      </div>
                                      <div class="panel-body">
-                                         <form role="form">
+                                        <form  method='POST'action="{{route('add_product')}}"enctype="multipart/form-data" >
                                             @csrf
-                                        <div class="form-group">
-                                            <label>أسم الأدمن</label>
-                                            <input class="form-control" type="text"name='AdminName'id='AdminName'>
-                                            <p class="help-block">أدخل أسم الأدمن هنا</p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>البريد الألكترونى</label>
-                                            <input class="form-control" type="email"name='AdminEmail'id="AdminEmail">
-                                            <p class="help-block">أدخل أسم البريد الألكترونى</p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>كلمة المرور</label>
-                                            <input type='password'name='admin_password'class='form-control'id='password'placeholder='أدخل كلمة المرور'>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>تأكيد كلمة المرور</label>
-                                            <input type='password'name='admin_password_confirmation'class='form-control'id='password_confirm'placeholder='نرجو تأكيد كلمة المرور'>
-                                        </div>
-                                        <button type="button" class="btn btn-info"id='btn_add_admin'><span class='fa fa-plus'></span></button>
-                                    </form>
+                                            <div class="form-group">
+                                                <label>أسم المنتج</label>
+                                                <input class="form-control" type="text"name='productname'id='productname'required>
+                                                <p class="help-block">أسم المنتج</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>سعر المنتج</label>
+                                                <input class="form-control" type="number"name='product_price'id="product_price"required>
+                                                <p class="help-block">سعر المنتج</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>العدد المتاح</label>
+                                                <input type="number" name="Product_quantity" id="productquantity"class='form-control'required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">القسم التابع له المنتج</label>
+                                                <select name="parent_cat" id="product_category"class='form-control' required>
+                                                    @foreach ($Categories as $cat)
+                                                        <option value="{{$cat->id}}">{{$cat->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <label for="">صورة للمنتج </label>
+                                                <input type="file" name="Product_img"id="Product_img"required>
+                                            <div class='form-group'>
+                                                
+                                            </div>
+                                            <div class='form-group'>
+                                                <label>وصف المنتج</label>
+                                                <textarea name="product_desc" id="product_desc" cols="30" rows="10"class='form-control'></textarea>
+                                            </div>
+                                            <input type="submit" class="btn btn-info"value='+'>
+                                        </form>
                                 </div>
                             </div>
                         </div>
@@ -102,7 +87,7 @@
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
-                                    <table class="table table-hover"id='admins_table'>
+                                    <table class="table table-hover"id='look_for_products'>
                                         
                                     </table>
                                 </div>

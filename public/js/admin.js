@@ -62,6 +62,9 @@ function render_admin_table(data){
 function get_all_admins_caller(){
     let data=get_all_admins({},"POST","json","/admin/get/all");
 }
+function look_for_product(type){
+    
+}
 $(document).ready(function(){
     $("#btn_add_admin").on("click",function(){
         if($("#password").val()==$("#password_confirm").val()){
@@ -77,12 +80,17 @@ $(document).ready(function(){
             alert("خطأ فى البيانات");
         }
     });
-    var int =setInterval(function(){
-        get_all_admins_caller();
-    }, 1000);
-    var counter_timer=setInterval(function(){
-        get_counters();
-    },1000);
+    if($("#admins_table")){
+        var int =setInterval(function(){
+            get_all_admins_caller();
+        }, 1000);
+        var counter_timer=setInterval(function(){
+            get_counters();
+        },1000);
+    }
+    else if($("#look_for_products")){
+
+    }
 });
 /*
 
