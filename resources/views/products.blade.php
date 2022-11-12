@@ -83,12 +83,22 @@
                     <div class='col-12'>
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Hover Rows
+                                البحث عن منتج
                             </div>
+                            
                             <div class="panel-body">
+                                    <input type="text" name="" id="key_name"class='form-control'>
+                                    <button class='btn btn-info col-4'id='btn_search_name'type='button'>أبحث بالأسم</button>
+                                    <select name="parent_cat" id="key_Category"class='form-control' required>
+                                        @foreach ($Categories as $cat)
+                                            <option value="{{$cat->id}}">{{$cat->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <button class='btn btn-info col-4'id='btn_search_cat'type='button'>أبحث بالتصنيف</button>
+                                    <input type="text" name="" id="key_added_by"class='form-control'>
+                                    <button class='btn btn-info col-4'id='btn_search_added_by'type='button'>أبحث بأسم الأدمن</button>
                                 <div class="table-responsive">
                                     <table class="table table-hover"id='look_for_products'>
-                                        
                                     </table>
                                 </div>
                             </div>

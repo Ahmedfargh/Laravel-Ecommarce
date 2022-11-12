@@ -73,12 +73,16 @@ class adminController extends Controller
         return category::all();
     }
     function search_product(Request $req){
+        $key=$req->get("key");
         if($req->get("type")=="by_name"){
-            return json_encode(DB::select("SELECT * FROM products WHERE name like '%"+$req->get("key")+"%'"));
+           
+            return json_encode(DB::select("SELECT products.added_by,products.id,products.cat_id,products.name,products.price,products.quantity,products.cat_id,products.img FROM products WHERE name like '%{$key}%'"));
         }else if($req->get("type")=="by_cat"){
-            return json_encode(DB::select("SELECT * FROM products JOIN categorys where products.cat_id=categorys.id and categorys.name like '%"+$req->get("name")+"%'"));
+            return json_encode(DB::select("SELECT products.added_by,products.id,products.cat_id,products.name,products.price,products.quantity,products.cat_id,products.img FROM products JOIN categorys where products.cat_id=categorys.id and categorys.id ={$key};"));
         }else if($req->get("type")=="by_added_by"){
-            return json_encode(DB::select("SELECT * FROM products join admin WHERE products.added_by=admins.id and admins.name '%"+$req->get("key")+"%';"));
+            //var_dump(DB::select("SELECT * FROM products join admins WHERE products.added_by=admins.id and admins.name like '%+{$req->get("key")}+%';"));
+            return json_encode(DB::select("SELECT products.added_by,products.id,products.cat_id,products.name,products.price,products.quantity,products.cat_id,products.img FROM products join admins WHERE products.added_by=admins.id and admins.name like '%{$key}%' ;"));
         }
+        return json_encode(["message"=>"أرجو أختيار نوع البحث "]);
     }
 }

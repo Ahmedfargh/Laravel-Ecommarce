@@ -22,4 +22,4 @@ Route::get("/admin/get/all",[adminController::class,"get_all"])->name("get_admin
 Route::get("/admin/get/count",[adminController::class,"count_admins"])->name("count_admins");
 Route::get("/admin/product/page",[adminController::class,"get_to_product_page"])->name("product_page");
 Route::POST("/admin/product/page/add",[adminController::class,"add_product"])->name("add_product");
-Route::POST("/admin/product/search",[adminController::class,"search_product"]);
+Route::GET("/admin/product/search",[adminController::class,"search_product"]);
