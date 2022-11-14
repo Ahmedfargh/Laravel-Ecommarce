@@ -73,15 +73,17 @@ function render_product_search(data){
     html+="<td>تمت الأأضافة بواسطة</td>";
     html+="<td>صورة للمنتج</td>";
     html+-"</tr>";
+    console.log(data);
     for(let product in data){
+        console.log(product);
         html+="<tr>";
-        html+="<td>"+data["name"]+"</td>";
-        html+="<td>"+data["id"]+"</td>";
-        html+="<td>"+data["price"]+"</td>";
-        html+="<td>"+data["qunatity"]+"</td>";
-        html+="<td>"+data["cat_id"]+"</td>";
-        html+="<td>"+data["added_by"]+"</td>";
-        html+="<td><img src='"+data["added_by"]+"'></td>";
+        html+="<td>"+data[product]["name"]+"</td>";
+        html+="<td>"+data[product]["id"]+"</td>";
+        html+="<td>"+data[product]["price"]+"</td>";
+        html+="<td>"+data[product]["quantity"]+"</td>";
+        html+="<td>"+data[product]["cat_id"]+"</td>";
+        html+="<td>"+data[product]["added_by"]+"</td>";
+        html+='<td><a href="http://localhost/'+data[product]['img']+'">أضغط هنا لروية الصورة</a></td>';
         html+="</tr>";
     }
     $("#look_for_products").html(html);
@@ -126,15 +128,12 @@ $(document).ready(function(){
         
     }
     $("#btn_search_name").on("click",function(){
-        alert("name");
         look_for_product("by_name",$("#key_name").val());
     });
     $("#key_Category").on("click",function(){
-        alert("name");
         look_for_product("by_cat",$("#key_Category").val());
     });
     $("#btn_search_added_by").on("click",function(){
-        alert("name");
         look_for_product("by_added_by",$("#key_added_by").val());
     });
 });

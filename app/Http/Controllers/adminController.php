@@ -56,7 +56,7 @@ class adminController extends Controller
         }
     }
     function add_product(Request $req){
-        $file=$req->file("Product_img")->store("images");
+        $file=$req->file("Product_img")->move("public/img/product/");
         $product=new Products;
         $product->name=$req->get("productname");
         $product->price=$req->get("product_price");
