@@ -85,7 +85,6 @@
                             <div class="panel-heading">
                                 البحث عن منتج
                             </div>
-                            
                             <div class="panel-body">
                                     <input type="text" name="" id="key_name"class='form-control'>
                                     <button class='btn btn-info col-4'id='btn_search_name'type='button'>أبحث بالأسم</button>
@@ -101,6 +100,59 @@
                                     <table class="table table-hover"id='look_for_products'>
                                     </table>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-12'>
+                        <div class='panel panel-default'>
+                            <div class="panel-heading">
+                                تحديث منتج
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-hover"id='update-product'>
+                                    <thead>
+                                        <tr>
+                                            <td>
+                                               رقم المنتج 
+                                            </td>
+                                            <td>
+                                                <input type="number" name="" id="product_id"class='form-control'>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tr>
+                                        <td>تحديث الأسم</td>
+                                        <td><input type='text'class='form-control'id='new_update_product'placeholder='ادخل الأسم الجديد لمنتج'></td>
+                                        <td><button class='btn btn-warning'type='button'id='update_product_name'>تحديث </button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>سعر المنتج</td>
+                                        <td><input type='number'class='form-control'id='new_product_price'placeholder='السعر الجديد للمنتج'></td>
+                                        <td><button class='btn btn-warning'type='button'id='update_product_price'>تحديث </button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>تحديث التصنيف</td>
+                                        <td>
+                                            <select name="parent_cat" id="update_cat"class='form-control' required>
+                                                @foreach ($Categories as $cat)
+                                                    <option value="{{$cat->id}}">{{$cat->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                        <td><button class='btn btn-warning'type='button'id='update_product_cat'>تحديث </button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>تحديث صورة المنتج</td>
+                                        <form action="{{route('update_product_image')}}" method="post"enctype="multipart/form-data"class='row'>
+                                        <td>
+                                            <input type="file" name="product_img"class='col-12' id="">
+                                        </td>
+                                        <td>
+                                            <input type='submit'class='btn btn-warning col-12'value='تحديث'name='update_pro_img'>
+                                        </td>
+                                        </form>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                     </div>

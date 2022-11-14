@@ -85,4 +85,25 @@ class adminController extends Controller
         }
         return json_encode(["message"=>"أرجو أختيار نوع البحث "]);
     }
+    function update_product(Request $req){
+        $update_col=$req->get("type");
+        $product=Products::find($req->get("pro_id"));
+        if($update_col=="name"){
+            $product->name=$req->get("value");
+        }else if($update_col=="price"){
+            $product->price=$req->get("value");
+        }else if($update_col=="cat_id"){
+            $product->cat_id=$req->get("value");
+        }
+        $product->save();
+        return json_encode(["message"=>1]);
+    }
+    function update_product_img(Request $req){
+        $file=$req->file("Product_img")->move("public/img/product/");
+        $product=Products::find($req->get("product_id"));
+        $product->img=$file;
+        $returned_data=$this->load_admin_data();
+        $returned_data["categories"]=$this->get_all_categories();
+        return view("products",$returned_data);
+    }
 }

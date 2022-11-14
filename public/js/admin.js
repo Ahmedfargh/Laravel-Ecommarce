@@ -83,7 +83,7 @@ function render_product_search(data){
         html+="<td>"+data[product]["quantity"]+"</td>";
         html+="<td>"+data[product]["cat_id"]+"</td>";
         html+="<td>"+data[product]["added_by"]+"</td>";
-        html+='<td><a href="http://localhost/'+data[product]['img']+'">أضغط هنا لروية الصورة</a></td>';
+        html+='<td><a href="/'+data[product]['img']+'">أضغط هنا لروية الصورة</a></td>';
         html+="</tr>";
     }
     $("#look_for_products").html(html);
@@ -91,13 +91,34 @@ function render_product_search(data){
 function look_for_product(type,key){
     $.ajax({
         url:"/admin/product/search",
-        data:{token:$("hidden").val(),type:type,key:key},
+        data:{_token:$("hidden").val(),type:type,key:key},
         dataType:"json",
         success:function(data){
             render_product_search(JSON.parse(JSON.stringify(data)));
         },
         failure:function(data){
             alert("فشلت عملية البحث");
+        }
+    });
+}
+function update_product(type,value,id){
+    $.ajax({
+        url:"/admin/product/update",
+        data:{_token:$("hidden").val(),type:type,value:value,pro_id:id},
+        dataType:"json",
+        success:function(data){
+            data=JSON.parse(JSON.stringify(data));
+            if(data["message"]==1){
+                alert("done");
+            }
+        },
+        statusCode:{
+            404:function(){
+                alert("أفحص الأتصال بالانترنت");
+            },
+            500:function(){
+                alert("خطأ فى برمجيات الخادم");
+            }
         }
     });
 }
@@ -135,6 +156,33 @@ $(document).ready(function(){
     });
     $("#btn_search_added_by").on("click",function(){
         look_for_product("by_added_by",$("#key_added_by").val());
+    });
+    $("#update_product_name").on("click",function(){
+        let pro_id=$("#product_id").val();
+        let value=$("#new_update_product").val();
+        if(pro_id==null || pro_id==undefined ||pro_id==""){
+            alert("رجاء أدخل رقم المنتج");
+        }else{
+            update_product("name",value,pro_id);
+        }
+    });
+    $("#update_product_price").on("click",function(){
+        let pro_id=$("#product_id").val();
+        let value=$("#new_product_price").val();
+        if(pro_id==null || pro_id==undefined ||pro_id==""){
+            alert("رجاء أدخل رقم المنتج");
+        }else{
+            update_product("price",value,pro_id);
+        }
+    });
+    $("#update_product_cat").on("click",function(){
+        let pro_id=$("#product_id").val();
+        let value=$("#update_cat").val();
+        if(pro_id==null || pro_id==undefined ||pro_id==""){
+            alert("رجاء أدخل رقم المنتج");
+        }else{
+            update_product("cat_id",value,pro_id);
+        }
     });
 });
 /*

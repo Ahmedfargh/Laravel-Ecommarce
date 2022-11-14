@@ -23,3 +23,5 @@ Route::get("/admin/get/count",[adminController::class,"count_admins"])->name("co
 Route::get("/admin/product/page",[adminController::class,"get_to_product_page"])->name("product_page");
 Route::POST("/admin/product/page/add",[adminController::class,"add_product"])->name("add_product");
 Route::GET("/admin/product/search",[adminController::class,"search_product"]);
+Route::GET("/admin/product/update",[adminController::class,"update_product"])->name("update_product");
+Route::GET("/admin/product/udate/image",[adminController::class,"update_product_img"])->name("update_product_image");
