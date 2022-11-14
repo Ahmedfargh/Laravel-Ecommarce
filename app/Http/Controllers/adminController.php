@@ -106,4 +106,7 @@ class adminController extends Controller
         $returned_data["categories"]=$this->get_all_categories();
         return view("products",$returned_data);
     }
+    function delete_product(Request $req){
+        return json_encode(["delete status"=>"تمت عملية المسح"]);
+    }
 }

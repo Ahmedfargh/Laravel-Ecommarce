@@ -24,4 +24,6 @@ Route::get("/admin/product/page",[adminController::class,"get_to_product_page"])
 Route::POST("/admin/product/page/add",[adminController::class,"add_product"])->name("add_product");
 Route::GET("/admin/product/search",[adminController::class,"search_product"]);
 Route::GET("/admin/product/update",[adminController::class,"update_product"])->name("update_product");
-Route::GET("/admin/product/udate/image",[adminController::class,"update_product_img"])->name("update_product_image");
+Route::POST("/admin/product/udate/image",[adminController::class,"update_product_img"])->name("update_product_image");
+Route::GET("/admin/product/delete",[adminController::class,"delete_product"])->name("delete_product");
+
