@@ -141,18 +141,32 @@
                                         </td>
                                         <td><button class='btn btn-warning'type='button'id='update_product_cat'>تحديث </button></td>
                                     </tr>
-                                    <tr>
-                                        <td>تحديث صورة المنتج</td>
-                                        <form action="{{route('update_product_image')}}" method="post"enctype="multipart/form-data"class='row'>
-                                        <td>
-                                            <input type="file" name="product_img"class='col-12' id="">
-                                        </td>
-                                        <td>
-                                            <input type='submit'class='btn btn-warning col-12'value='تحديث'name='update_pro_img'>
-                                        </td>
-                                        </form>
-                                    </tr>
+                                    
                                 </table>
+                                <form method="POST"enctype="multipart/form-data"action="{{route('update_product_image')}}">
+                                    <table>
+                                        <tr>
+                                            <td>تحديث صورة المنتج</td>
+                                            
+                                            <td>
+                                                <input type="file" name="product_img"class='col-12' id="">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                رقم المنتج 
+                                            </td>
+                                            <td>
+                                                <input type="number" name="product_id" id="product_id"class='form-control'>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type='submit'class='btn btn-warning'value='تحديث'name='update_pro_img'>
+                                            </td>
+                                        </tr>
+                                </table>
+                                </form>
                             </div>
                         </div>
                     </div>

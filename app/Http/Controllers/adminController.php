@@ -99,9 +99,10 @@ class adminController extends Controller
         return json_encode(["message"=>1]);
     }
     function update_product_img(Request $req){
-        $file=$req->file("Product_img")->move("public/img/product/");
-        $product=Products::find($req->get("product_id"));
-        $product->img=$file;
+        $file=$req->file("product_img")->move("public/img/product/");
+        echo "fuck !!!1";
+        Products::where("id","=",$req->get("product_id"))->update(["img"=>$file]);
+        echo "shit !!!!";
         $returned_data=$this->load_admin_data();
         $returned_data["categories"]=$this->get_all_categories();
         return view("products",$returned_data);
