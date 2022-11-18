@@ -141,10 +141,15 @@
                                         </td>
                                         <td><button class='btn btn-warning'type='button'id='update_product_cat'>تحديث </button></td>
                                     </tr>
-                                    
+                                    <tr>
+                                        <td>
+                                            <button class='btn btn-danger'id='delete_product'type='button'>حذف</button>
+                                        </td>
+                                    </tr>
                                 </table>
-                                <form method="POST"enctype="multipart/form-data"action="{{route('update_product_image')}}">
+                                <form method="POST"enctype="multipart/form-data"action='{{route("update_product_image")}}'>
                                     <table>
+                                        @csrf
                                         <tr>
                                             <td>تحديث صورة المنتج</td>
                                             
@@ -167,6 +172,9 @@
                                         </tr>
                                 </table>
                                 </form>
+                                <div class='row'>
+                                    
+                                </div>
                             </div>
                         </div>
                     </div>

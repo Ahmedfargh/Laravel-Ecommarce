@@ -10,10 +10,10 @@ class adminController extends Controller
 {
     //admin login method
     function login(Request $req){
-        $admin=Admin::where("name",$req->input("adminname"));
-        if(count($admin->get("password"))==1){
-            $_SESSION["admin_id"]=$admin->get("id");
-            return view("index",["adminName"=>$admin->get("name")[0]["name"],"profile_img"=>$admin->get("img"),"Type"=>"no"]);
+        $admin=DB::select("SELECT name,password,id,img FROM admins where name='{$req->get("adminname")}' AND password='{$req->get("password")}';");
+        if(count($admin)==1){
+            $_SESSION["admin_id"]=$admin[0]->id;
+            return view("index",["adminName"=>$admin[0]->name,"profile_img"=>$admin[0]->img,"Type"=>"no"]);
         }
         return view("login");
     }
@@ -41,7 +41,7 @@ class adminController extends Controller
     }
     function load_admin_data(){
         if(isset($_SESSION["admin_id"])){
-            $admin=DB::select("SELECT name,img FROM admins WHERE id=?", [$_SESSION["admin_id"][0]["id"]]);
+            $admin=DB::select("SELECT name,img,added_by,password,email,id FROM admins WHERE id={$_SESSION["admin_id"]}");
             return ["adminName"=>$admin[0]->name,"profile_img"=>$admin[0]->img,"Type"=>"Product","Categories"=>$this->get_all_categories()];
         }else{
             return false;
@@ -100,14 +100,23 @@ class adminController extends Controller
     }
     function update_product_img(Request $req){
         $file=$req->file("product_img")->move("public/img/product/");
-        echo "fuck !!!1";
-        Products::where("id","=",$req->get("product_id"))->update(["img"=>$file]);
-        echo "shit !!!!";
+        $product=Products::find($req->get("product_id"));
+        $product->img=$file;
+        $product->save();
         $returned_data=$this->load_admin_data();
         $returned_data["categories"]=$this->get_all_categories();
         return view("products",$returned_data);
     }
     function delete_product(Request $req){
+        Products::destroy($req->get("id"));
         return json_encode(["delete status"=>"تمت عملية المسح"]);
     }
+    function get_to_my_Account_details(Request $req){
+        $data=$this->load_admin_data();
+        if($data){
+            return view("admin-account",$this->load_admin_data());
+        }
+        return view("login");
+    }
+    
 }

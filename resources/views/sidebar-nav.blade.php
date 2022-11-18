@@ -7,7 +7,7 @@
                         @if ($Type=="Product")
                         <img src="{{asset($profile_img)}}" class="img-thumbnail"id='done' />
                         @else
-                            <img src="{{asset($profile_img[0]["img"])}}" class="img-thumbnail" />
+                            <img src="{{asset($profile_img)}}" class="img-thumbnail" />
                         @endif 
                     @else
                         <img src="assets/img/user.png" class="img-thumbnail" />   
@@ -27,7 +27,7 @@
                 <a class="" href='{{route("product_page")}}''><i class="fa fa-square-o "></i>صفحة المنتجات</a>
             </li>
             <li>
-                <a  href="index.html"><i class="fa fa-dashboard "></i>Dashboard</a>
+                <a  href="{{route('admin_account')}}"><i class="fa fa-dashboard "></i>حسابى </a>
             </li>
             
             <li>

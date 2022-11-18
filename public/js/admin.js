@@ -122,6 +122,25 @@ function update_product(type,value,id){
         }
     });
 }
+function delete_product(pro_id){
+    $.ajax({
+        url:"/admin/product/delete",
+        data:{_token:$("hidden").val(),id:pro_id},
+        dataType:"json",
+        success:function(data){
+            data=JSON.parse(JSON.stringify(data))
+            alert(data["delete status"]);
+        },
+        statusCode:{
+            404:function(){
+                alert("أفحص أتصالك بالانترنت");
+            },
+            500:function(){
+                alert("خطأ فى برمجيات الخادم");
+            }
+        }
+    });
+}
 $(document).ready(function(){
     $("#btn_add_admin").on("click",function(){
         if($("#password").val()==$("#password_confirm").val()){
@@ -183,6 +202,9 @@ $(document).ready(function(){
         }else{
             update_product("cat_id",value,pro_id);
         }
+    });
+    $("#delete_product").on("click",function(){
+        delete_product($("#product_id").val());
     });
 });
 /*
