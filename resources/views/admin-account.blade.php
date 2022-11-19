@@ -28,15 +28,15 @@
                         </h1>
                     </div>
                 </div>
-                <div id='admins_table'></div>
+               
                 <!-- /. ROW  -->
                 <div class="row">
                     <div class="portfolio-item nature mix_all" data-cat="nature" style="display: inline-block; opacity: 1;">
                         @if ($profile_img!=null)
                         @if ($Type=="Product")
-                        <img src="{{asset($profile_img)}}" class="img-thumbnail"id='done' />
+                        <img src="{{asset($profile_img)}}" class="img-thumbnail"id='done' title='{{$adminName}}'/>
                         @else
-                            <img src="{{asset($profile_img)}}" class="img-thumbnail" />
+                            <img src="{{asset($profile_img)}}" class="img-thumbnail" title='{{$adminName}}'/>
                         @endif 
                     @else
                     @endif
