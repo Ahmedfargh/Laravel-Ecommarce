@@ -42,7 +42,7 @@ class adminController extends Controller
     function load_admin_data(){
         if(isset($_SESSION["admin_id"])){
             $admin=DB::select("SELECT name,img,added_by,password,email,id FROM admins WHERE id={$_SESSION["admin_id"]}");
-            return ["adminName"=>$admin[0]->name,"profile_img"=>$admin[0]->img,"Type"=>"Product","Categories"=>$this->get_all_categories()];
+            return ["adminName"=>$admin[0]->name,"profile_img"=>$admin[0]->img,"Type"=>"Product","Categories"=>$this->get_all_categories(),"admin"=>$admin];
         }else{
             return false;
         }

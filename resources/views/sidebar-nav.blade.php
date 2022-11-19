@@ -13,7 +13,7 @@
                         <img src="assets/img/user.png" class="img-thumbnail" />   
                     @endif
                     <div class="inner-text">
-                        Jhon Deo Alex
+                        {{$admin[0]->name}}
                     <br />
                         <small>Last Login : 2 Weeks Ago </small>
                     </div>

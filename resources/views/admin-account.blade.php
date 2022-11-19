@@ -34,46 +34,57 @@
                     <div class="col-12">
                         <div class="col-12">
                             <div class="panel panel-info">
-                                    <div class="panel-heading">
-                                        إضافة أدمن
-                                     </div>
-                                     <div class="panel-body">
-                                        <form  method='POST'action="{{route('add_product')}}"enctype="multipart/form-data" >
-                                            @csrf
-                                            <div class="form-group">
-                                                <label>أسم المنتج</label>
-                                                <input class="form-control" type="text"name='productname'id='productname'required>
-                                                <p class="help-block">أسم المنتج</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>سعر المنتج</label>
-                                                <input class="form-control" type="number"name='product_price'id="product_price"required>
-                                                <p class="help-block">سعر المنتج</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>العدد المتاح</label>
-                                                <input type="number" name="Product_quantity" id="productquantity"class='form-control'required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="">القسم التابع له المنتج</label>
-                                                <select name="parent_cat" id="product_category"class='form-control' required>
-                                                    @foreach ($Categories as $cat)
-                                                        <option value="{{$cat->id}}">{{$cat->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-
-                                            <label for="">صورة للمنتج </label>
-                                                <input type="file" name="Product_img"id="Product_img"required>
-                                            <div class='form-group'>
-                                                
-                                            </div>
-                                            <div class='form-group'>
-                                                <label>وصف المنتج</label>
-                                                <textarea name="product_desc" id="product_desc" cols="30" rows="10"class='form-control'></textarea>
-                                            </div>
-                                            <input type="submit" class="btn btn-info"value='+'>
-                                        </form>
+                                <div class="panel-heading">
+                                    بيانات الحساب الخاص بك
+                                </div>
+                                <div class="panel-body">
+                                    <table class='table table-responsive table-bordered table-striped'>
+                                        <tr>
+                                            <td>
+                                                تعديل الأسم
+                                            </td>
+                                            <td>
+                                                <input type="text" name="admin_name"class='form-control' id="admin_name"value="{{$admin[0]->name}}"">
+                                            </td>
+                                            <td>
+                                                <button type='button'class='btn btn-info'id='update_my_admin_name'>تحديث </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                تعديل البريد الألكترونى
+                                            </td>
+                                            <td>
+                                                <input type="email"class='form-control'id='muAdmin_email'value='{{$admin[0]->email}}'>
+                                            </td>
+                                            <td>
+                                                <button class='btn btn-info'type='button'id='update_my_admin_email'>تحديث </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                تعديل كلمة السر
+                                            </td>
+                                            <td>
+                                                <input type="password"class='form-control'id='old_password'placeholder='أدخل كلمة السرالقديمة'>
+                                                <input type="password"class='form-control'id='new_password'placeholder='أدخل كلمة السر الجديدة'>
+                                            </td>
+                                            <td><button class='btn btn-info'type='button'id='update_my_admin_password'>تحديث</button></td>
+                                        </tr>
+                                        <tr>
+                                            <form action="" method="post">
+                                                <td>
+                                                    تعديل صورة الحساب الشخصى
+                                                </td>
+                                                <td>
+                                                    <input type="file" name="new_admin_picture" id="">
+                                                </td>
+                                                <td>
+                                                    <button class='btn btn-info' type='submit'name='save_new_img'>تحديث </button>
+                                                </td>
+                                            </form>
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
                         </div>
