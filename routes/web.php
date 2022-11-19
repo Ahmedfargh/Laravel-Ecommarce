@@ -27,4 +27,5 @@ Route::GET("/admin/product/update",[adminController::class,"update_product"])->n
 Route::post("/admin/product/udate/image",[adminController::class,"update_product_img"])->name("update_product_image");
 Route::GET("/admin/product/delete",[adminController::class,"delete_product"])->name("delete_product");
 Route::GET("/admin/account/setting",[adminController::class,"get_to_my_Account_details"])->name("admin_account");
+Route::GET("/admin/update",[adminController::class,"update_by_data"])->name("update_admin_field");
 

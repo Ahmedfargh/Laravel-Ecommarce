@@ -118,5 +118,16 @@ class adminController extends Controller
         }
         return view("login");
     }
-    
+    function update_by_data(Request $req){
+        $admin=Admin::find($_SESSION["admin_id"]);
+        if($req->get("col")=="name"){
+            $admin->name=$req->get("value");
+        }else if($req->get("col")=="email"){
+            $admin->email=$req->get("value");
+        }else if($req->get("col")=="password"){
+            $admin->password=$req->get("value");
+        }
+        $admin->save();
+        return json_encode(["update_admin_status"=>"تمت عملية التحديث بنجاح"]);
+    }
 }

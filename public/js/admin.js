@@ -141,6 +141,26 @@ function delete_product(pro_id){
         }
     });
 }
+function update_admin_field(col,value){
+    $.ajax({
+        url:"/admin/update",
+        data:{_token:$("hidden").val(),col:col,value:value},
+        dataType:"json",
+        success:function(data){
+            data=JSON.parse(JSON.stringify(data));
+            alert(data["update_admin_status"]);
+            window.location=document.location;
+        },
+        statusCode:{
+            404:function(){
+                alert("أفحص أتصاللك بالأنترنت");
+            },
+            500:function(){
+                alert("خطأ فى برمجيات الخادم");
+            }
+        }
+    });
+}
 $(document).ready(function(){
     $("#btn_add_admin").on("click",function(){
         if($("#password").val()==$("#password_confirm").val()){
@@ -206,7 +226,19 @@ $(document).ready(function(){
     $("#delete_product").on("click",function(){
         delete_product($("#product_id").val());
     });
+    $("#update_my_admin_name").on("click",function(){
+        update_admin_field("name",$("#admin_name").val());
+    });
+    $("#update_my_admin_email").on("click",function(){
+        update_admin_field("email",$("#myAdmin_email").val());
+    });
+    $("#update_my_admin_password").on("click",function(){
+        let old_password=$("#old_password").val();
+        let new_password=$("#new_password").val();
+        if($("#old_password").val()==$("#new_password").val()||$("#new_password").val()==""||$("#new_password").val()==null ||$("#new_password").val()==undefined){
+            alert("لايمكن تحديث الباسورد");
+        }else{
+            update_admin_field("password",$("#new_password").val());
+        }
+    });
 });
-/*
-ل
- */

@@ -55,7 +55,7 @@
                                                 تعديل البريد الألكترونى
                                             </td>
                                             <td>
-                                                <input type="email"class='form-control'id='muAdmin_email'value='{{$admin[0]->email}}'>
+                                                <input type="email"class='form-control'id='myAdmin_email'value='{{$admin[0]->email}}'>
                                             </td>
                                             <td>
                                                 <button class='btn btn-info'type='button'id='update_my_admin_email'>تحديث </button>
@@ -73,6 +73,7 @@
                                         </tr>
                                         <tr>
                                             <form action="" method="post">
+                                                @csrf
                                                 <td>
                                                     تعديل صورة الحساب الشخصى
                                                 </td>
