@@ -28,15 +28,35 @@
                         </h1>
                     </div>
                 </div>
-                
+                <div id='admins_table'></div>
                 <!-- /. ROW  -->
                 <div class="row">
+                    <div class="portfolio-item nature mix_all" data-cat="nature" style="display: inline-block; opacity: 1;">
+                        @if ($profile_img!=null)
+                        @if ($Type=="Product")
+                        <img src="{{asset($profile_img)}}" class="img-thumbnail"id='done' />
+                        @else
+                            <img src="{{asset($profile_img)}}" class="img-thumbnail" />
+                        @endif 
+                    @else
+                    @endif
+                        <div class="overlay">
+                           <p>
+                                <span>
+                                صورة حسابك الشخصى
+                                </span>
+                               
+                                {{$adminName}}
+                            </p>
+                        </div>
+                    </div>
                     <div class="col-12">
                         <div class="col-12">
                             <div class="panel panel-info">
                                 <div class="panel-heading">
                                     بيانات الحساب الخاص بك
                                 </div>
+                                
                                 <div class="panel-body">
                                     <table class='table table-responsive table-bordered table-striped'>
                                         <tr>
@@ -72,7 +92,7 @@
                                             <td><button class='btn btn-info'type='button'id='update_my_admin_password'>تحديث</button></td>
                                         </tr>
                                         <tr>
-                                            <form action="" method="post">
+                                            <form action="{{route("update_admin_img")}}" method="POST"enctype="multipart/form-data">
                                                 @csrf
                                                 <td>
                                                     تعديل صورة الحساب الشخصى

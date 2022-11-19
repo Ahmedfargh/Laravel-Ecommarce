@@ -6,9 +6,12 @@ use App\Models\Admin;
 use App\Models\Products;
 use App\Models\category;
 use Illuminate\Support\Facades\DB;
+/*
+*this class is to handle all admin operations
+*/
 class adminController extends Controller
 {
-    //admin login method
+    //admin login method return to index view if is done or get back to login
     function login(Request $req){
         $admin=DB::select("SELECT name,password,id,img FROM admins where name='{$req->get("adminname")}' AND password='{$req->get("password")}';");
         if(count($admin)==1){
@@ -17,6 +20,9 @@ class adminController extends Controller
         }
         return view("login");
     }
+    /*
+    *add admin functionality 
+    */
     function add_admin(Request $req){
         $response=[];
         try{
@@ -129,5 +135,20 @@ class adminController extends Controller
         }
         $admin->save();
         return json_encode(["update_admin_status"=>"تمت عملية التحديث بنجاح"]);
+    }
+    function update_admin_img(Request $req){
+        $admin=Admin::find($_SESSION["admin_id"]);
+        $file=$req->file("new_admin_picture")->move("public/img/portfolio/");
+        $admin->img=$file;
+        $admin->save();
+        return redirect("/admin/account/setting");
+    }
+    function count_admin_actions(Request $req){
+        $data=[];
+        $admins_Added=DB::select("SELECT COUNT(*) as counter from admins WHERE added_By={$_SESSION["admin_id"]}");
+        $product_added=DB::select("SELECT COUNT(*) as counter from products HERE added_By={$_SESSION["admin_id"]}");
+        $data["admins_added"]=$admins_Added[0]->counter;
+        $data["product_Added"]=$product_added[0]->counter;
+        return json_decode($data);
     }
 }

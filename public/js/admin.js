@@ -23,6 +23,7 @@ function ajax_contact(data,method,dataType,url){
         dataType:"json",
         success:function(data){
             data=JSON.parse(JSON.stringify(data));
+            console.log(data);
             $("#admin_counter").html("عدد الأدمن "+data[0]);
             $("#user_counters").html("عدد المستخدممين"+data[1]);
             $("#under_shopping_user").html("عدد المستخدمين الذين يتسوقون الأن"+data[2]);
@@ -182,7 +183,8 @@ $(document).ready(function(){
         }, 1000);
         var counter_timer=setInterval(function(){
             get_counters();
-        },1000);
+        },1000)
+        alert("done");
     }
     else if($("#look_for_products")){
         
@@ -241,4 +243,5 @@ $(document).ready(function(){
             update_admin_field("password",$("#new_password").val());
         }
     });
+    ajax_contact([],"POST","json","/admin/get/count");
 });
