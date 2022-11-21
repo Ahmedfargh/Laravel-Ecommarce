@@ -31,35 +31,7 @@
             </li>
             
             <li>
-                <a href="#"><i class="fa fa-desktop "></i>UI Elements <span class="fa arrow"></span></a>
-                 <ul class="nav nav-second-level">
-                    <li>
-                        <a href="panel-tabs.html"><i class="fa fa-toggle-on"></i>Tabs & Panels</a>
-                    </li>
-                    <li>
-                        <a href="notification.html"><i class="fa fa-bell "></i>Notifications</a>
-                    </li>
-                     <li>
-                        <a href="progress.html"><i class="fa fa-circle-o "></i>Progressbars</a>
-                    </li>
-                     <li>
-                        <a href="buttons.html"><i class="fa fa-code "></i>Buttons</a>
-                    </li>
-                     <li>
-                        <a href="icons.html"><i class="fa fa-bug "></i>Icons</a>
-                    </li>
-                     <li>
-                        <a href="wizard.html"><i class="fa fa-bug "></i>Wizard</a>
-                    </li>
-                     <li>
-                        <a href="typography.html"><i class="fa fa-edit "></i>Typography</a>
-                    </li>
-                     <li>
-                        <a href="grid.html"><i class="fa fa-eyedropper "></i>Grid</a>
-                    </li>
-                    
-                   
-                </ul>
+                <a href='{{route("category_bord")}}'>التصنيفات</a>
             </li>
              <li>
                 <a href="#"><i class="fa fa-yelp "></i>Extra Pages <span class="fa arrow"></span></a>

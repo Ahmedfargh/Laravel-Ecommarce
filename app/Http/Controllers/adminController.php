@@ -151,4 +151,36 @@ class adminController extends Controller
         $data["product_Added"]=$product_added[0]->counter;
         return json_decode($data);
     }
+    function get_to_category(Request $req){
+        if(isset($_SESSION["admin_id"])){
+            return view("categorys",$this->load_admin_data());
+        }
+        return view("login");
+    }
+    function get_cats_data(){
+        return DB::table("categorys")->join("categorys");
+    }
+    function add_category(Request $req){
+        $cat=new category;
+        $cat->name=$req->get("category_name");
+        if($req->get("parent_Class")!=0){
+            $cat->parent_cat=$req->get("parent_Class");
+        }
+        $cat->save();
+        return view("categorys",$this->load_admin_data());
+    }
+    function update_category(Request $req){
+        $cat=category::find($req->get("id"));
+        if($req->get("col")=="name"){
+            $cat->name=$req->get("value");
+        }else if($req->get("col")=="parent_cat"){
+            $cat->parent_cat=$req->get("value");
+        }
+        $cat->save();
+        return json_encode(["update_cat_Status"=>"تمت عملية تحديث التصنيف بنجاح"]);
+    } 
+    function delete_category(Request $req){
+        category::destroy($req->get("id"));
+        return json_encode(["delete_Status"=>"تمت عملية حذف التصنيف بنجاح"]);
+    }
 }

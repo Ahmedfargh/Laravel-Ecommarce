@@ -162,6 +162,46 @@ function update_admin_field(col,value){
         }
     });
 }
+function update_category(col,value,id){
+    $.ajax({
+        url:"/admin/update/category",
+        data:{_token:$("hidden").val(),col:col,value:value,id:id},
+        dataType:"json",
+        success:function(data){
+            data=JSON.parse(JSON.stringify(data));
+            alert(data["update_cat_Status"]);
+            window.location=document.location;
+        },
+        statusCode:{
+            404:function(){
+                alert("أفحص أتصاللك بالأنترنت");
+            },
+            500:function(){
+                alert("خطأ فى برمجيات الخادم");
+            }
+        }
+    });
+}
+function delete_category(cat_id){
+    $.ajax({
+        url:"/admin/delete/category",
+        data:{_token:$("hidden").val(),id:cat_id},
+        dataType:"json",
+        success:function(data){
+            data=JSON.parse(JSON.stringify(data));
+            alert(data["delete_Status"]);
+            window.location=document.location;
+        },
+        statusCode:{
+            404:function(){
+                alert("أفحص أتصاللك بالأنترنت");
+            },
+            500:function(){
+                alert("خطأ فى برمجيات الخادم");
+            }
+        }
+    });
+}
 $(document).ready(function(){
     $("#btn_add_admin").on("click",function(){
         if($("#password").val()==$("#password_confirm").val()){
@@ -184,7 +224,7 @@ $(document).ready(function(){
         var counter_timer=setInterval(function(){
             get_counters();
         },1000)
-        alert("done");
+        
     }
     else if($("#look_for_products")){
         
@@ -242,6 +282,15 @@ $(document).ready(function(){
         }else{
             update_admin_field("password",$("#new_password").val());
         }
+    });
+    $("#update_cat_name").on("click",function(){
+        update_category("name",$("#new_update_cat_name").val(),$("#category_class").val());
+    });
+    $("#update_parent_cat").on("click",function(){
+        update_category("parent_cat",$("#update_newparent_cat").val(),$("#category_class").val());
+    });
+    $("#delete_cat_product").on("click",function(){
+        delete_category($("#category_class").val());
     });
     ajax_contact([],"POST","json","/admin/get/count");
 });

@@ -29,4 +29,8 @@ Route::GET("/admin/product/delete",[adminController::class,"delete_product"])->n
 Route::GET("/admin/account/setting",[adminController::class,"get_to_my_Account_details"])->name("admin_account");
 Route::GET("/admin/update",[adminController::class,"update_by_data"])->name("update_admin_field");
 Route::POST("/admin/update/img",[adminController::class,"update_admin_img"])->name("update_admin_img");
+Route::GET("/admin/category/",[adminController::class,"get_to_category"])->name("category_bord");
+Route::any("/admin/category/add",[adminController::class,"add_category"])->name("add_Category");
+Route::GET("/admin/update/category",[adminController::class,"update_category"])->name("update_categroy");
+Route::GET("/admin/delete/category",[adminController::class,"delete_category"]);
 
