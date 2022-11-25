@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Products;
 use App\Models\category;
 use Illuminate\Support\Facades\DB;
+use App\Models\post;
 /*
 *this class is to handle all admin operations
 */
@@ -182,5 +183,10 @@ class adminController extends Controller
     function delete_category(Request $req){
         category::destroy($req->get("id"));
         return json_encode(["delete_Status"=>"تمت عملية حذف التصنيف بنجاح"]);
+    }
+    function admin_posts(Request $req){
+        $data=$this->load_admin_data();
+        $data["posts"]=DB::select("SELECT admins.name as name,posts.writer,posts.post_id,posts.wrote_on as post_date,posts.post as post_cotent from posts,admins where posts.writer=admins.id");
+        return view("posts",$data);
     }
 }

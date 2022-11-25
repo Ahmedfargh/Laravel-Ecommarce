@@ -33,4 +33,4 @@ Route::GET("/admin/category/",[adminController::class,"get_to_category"])->name(
 Route::any("/admin/category/add",[adminController::class,"add_category"])->name("add_Category");
 Route::GET("/admin/update/category",[adminController::class,"update_category"])->name("update_categroy");
 Route::GET("/admin/delete/category",[adminController::class,"delete_category"]);
-
+ROUTE::GET("/admin/posts",[adminController::class,"admin_posts"])->name("admin_post");

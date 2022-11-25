@@ -33,6 +33,9 @@
             <li>
                 <a href='{{route("category_bord")}}'>التصنيفات</a>
             </li>
+            <li>
+                <a href="{{route('admin_post')}}">منشورات الأدمن</a>
+            </li>
              <li>
                 <a href="#"><i class="fa fa-yelp "></i>Extra Pages <span class="fa arrow"></span></a>
                  <ul class="nav nav-second-level">
