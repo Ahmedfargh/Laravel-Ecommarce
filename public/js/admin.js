@@ -1,4 +1,5 @@
-﻿function get_all_admins(data,method,dataType,url){
+﻿let current_chat_id=0;
+function get_all_admins(data,method,dataType,url){
     data_to_return="shit";
     data_to_return=$.ajax({
         type:"GET",
@@ -221,6 +222,64 @@ function upload_post(text){
         }
     });
 }
+function render_message(data){
+    html="";
+    for(let message in data){
+        if(data[message]["sender"]==current_chat_id){
+            html+="<div class='chat-widget-right'>"+data[message]["chat_content"]+"</div>";
+            html+="<div class='chat-widget-name-right'>فى "+data[message]["wrote_in"]+"الطرف الأخر</div>";
+            continue;
+        }else{
+            html+="<div class='chat-widget-left'>"+data[message]["chat_content"]+"</div>";
+            html+="<div class='chat-widget-name-left'>فى "+data[message]["wrote_in"]+"أنتا</div>";
+            continue;
+        }
+    }
+    $("#private_chat").html(html);
+}
+function get_chat(user){
+    $.ajax({
+        url:"/admin/get_chat",
+        data:{_token:$("hidden").val(),sender:user},
+        dataType:"json",
+        success:function(data){
+            data=JSON.parse(JSON.stringify(data));
+            console.info(data);
+            render_message(data);
+        },
+        statusCode:{
+            404:function(){
+                alert("افحص أتصالك بالأنترنت");
+            },
+            500:function(){
+                alert("خطأ فى برمجيات الخادم");
+            }
+        }
+    });
+}
+function send_message(){
+    if(current_chat_id==0){
+        alert("أختار المرسل إليه");
+    }else{
+        $.ajax({
+            url:"/admin/send/message",
+            data:{_token:$("hidden").val(),reciver:current_chat_id,chat_content:$("#sent_message").val()},
+            dataType:"json",
+            success:function(data){
+                data=JSON.parse(JSON.stringify(data));
+                get_chat(current_chat_id);
+            },
+            statusCode:{
+                404:function(){
+                    alert("افحص أتصالك بالأنترنت");
+                },
+                500:function(){
+                    alert("خطأ فى برمجيات الخادم");
+                }
+            }
+        });
+    }
+}
 $(document).ready(function(){
     $("#btn_add_admin").on("click",function(){
         if($("#password").val()==$("#password_confirm").val()){
@@ -313,6 +372,13 @@ $(document).ready(function(){
     });
     $("#upload_post").on("click",function(){
         upload_post($("#upload_message").val());
+    });
+    $("#second_admin").on("change",function(){
+        current_chat_id=$("#second_admin").val();
+        get_chat($("#second_admin").val());
+    });
+    $("#send_message").on("click",function(){
+        send_message();
     });
     ajax_contact([],"POST","json","/admin/get/count");
 });

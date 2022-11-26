@@ -35,3 +35,5 @@ Route::GET("/admin/update/category",[adminController::class,"update_category"])-
 Route::GET("/admin/delete/category",[adminController::class,"delete_category"]);
 ROUTE::GET("/admin/posts",[adminController::class,"admin_posts"])->name("admin_post");
 Route::GET("/admin/upload/posts",[adminController::class,"publish_post"])->name("add_post");
+Route::GET("/admin/get_chat",[adminController::class,"get_chat"])->name("get_chat");
+Route::GET("/admin/send/message",[adminController::Class,"send_message"])->name("send_message");

@@ -38,7 +38,6 @@
                                 مراسلات الجميع
                             </div>
                             <div class="panel-body" style="padding: 0px;">
-                               
                                 <div class="chat-widget-main">
                                     @foreach ($posts as $post)
                                         @if ($post->writer==$_SESSION["admin_id"])
@@ -68,97 +67,35 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
-                </div>
-                <div class='row'>
-                    <div class='col-12'>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                جدول التصنيفات
-                            </div>
-                            <div class="panel-body">
+                    <div class="col-12">
 
-                                <div class="table-responsive">
-                                    <table class="table table-hover"id='look_for_products'>
-                                        <thead>
-                                            <tr>
-                                                <td>
-                                                    رقم الصنيف
-                                                </td>
-                                                <td>
-                                                    أسم التصنيف
-                                                </td>
-                                                <td>
-                                                    رقم التصنيف الأب
-                                                </td>
-                                            </tr>
-                                        </thead>
-                                        @foreach ($Categories as $cat)
-                                        <tr>
-                                            <td>
-                                                {{$cat->id}}
-                                            </td>
-                                            <td>
-                                                {{$cat->name}}
-                                            </td>
-                                            <td>
-                                                {{$cat->parent_cat}}
-                                            </td>
-                                       
-                                        </tr>
-                                        @endforeach
-                                    </table>
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                               مرسالاتك مع الأدمن 
+                               <select name="" id="second_admin">
+                                    @foreach ($admins as $admin)
+                                        <option value="{{$admin->adm_id}}">{{$admin->adm_name}}({{$admin->adm_id}})</option>
+                                    @endforeach
+                               </select>
+                            </div>
+                            <div class="panel-body" style="padding: 0px;">
+                                <div class="chat-widget-main"id='private_chat'>
+                                   
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="أدخل الرسالة"id='sent_message'>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-success" type="button"id='send_message'>أرسل الرسالة</button>
+                                    </span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class='col-12'>
-                        <div class='panel panel-default'>
-                            <div class="panel-heading">
-                                تحديث التصنيف
-                            </div>
-                            <div class="panel-body">
-                                <table class="table table-hover"id='update-product'>
-                                    <thead>
-                                        <tr>
-                                            <td>
-                                                رقم التصنيف
-                                            </td>
-                                            <td>
-                                                <input type="number" name="" id="category_class"class='form-control'>
-                                            </td>
-                                        </tr>
-                                    </thead>
-                                    <tr>
-                                        <td>تحديث الأسم</td>
-                                        <td><input type='text'class='form-control'id='new_update_cat_name'placeholder='ادخل الأسم الجديد لمنتج'></td>
-                                        <td><button class='btn btn-warning'type='button'id='update_cat_name'>تحديث </button></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>تحديث الصنف الأب</td>
-                                        <td>
-                                            <select name="parent_cat" id="update_newparent_cat"class='form-control' required>
-                                                @foreach ($Categories as $cat)
-                                                    <option value="{{$cat->id}}">{{$cat->name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </td>
-                                        <td><button class='btn btn-warning'type='button'id='update_parent_cat'>تحديث </button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <button class='btn btn-danger'id='delete_cat_product'type='button'>حذف</button>
-                                        </td>
-                                    </tr>
-                                </table>
-                                
-                            </div>
-                        </div>
-                    </div>
                 </div>
+                
             </div>
             <!-- /. PAGE INNER  -->
         </div>

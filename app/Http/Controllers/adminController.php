@@ -7,6 +7,7 @@ use App\Models\Products;
 use App\Models\category;
 use Illuminate\Support\Facades\DB;
 use App\Models\post;
+use App\Models\chat;
 /*
 *this class is to handle all admin operations
 */
@@ -187,6 +188,7 @@ class adminController extends Controller
     function admin_posts(Request $req){
         $data=$this->load_admin_data();
         $data["posts"]=DB::select("SELECT admins.name as name,posts.writer,posts.post_id,posts.wrote_on as post_date,posts.post as post_cotent from posts,admins where posts.writer=admins.id");
+        $data["admins"]=DB::select("SELECT admins.name as adm_name,admins.id as adm_id from admins");
         return view("posts",$data);
     }
     function publish_post(Request $req){
@@ -195,5 +197,17 @@ class adminController extends Controller
         $post->writer=$_SESSION["admin_id"];
         $post->save();
         return json_encode(["publish_post"=>"تم أرسال الرسالة لجميع الأمنز"]);
+    }
+    function get_chat(Request $req){
+        $chat=DB::select("SELECT wrote_in,sender,reciever,chat_content from chat where (sender={$req->get("sender")} and reciever={$_SESSION['admin_id']})or(reciever={$req->get("sender")} and sender={$_SESSION['admin_id']})ORDER BY wrote_in asc;");
+        return json_encode($chat);
+    }
+    function send_message(Request $req){
+        $chat=new chat;
+        $chat->chat_content=$req->get("chat_content");
+        $chat->sender=$_SESSION["admin_id"];
+        $chat->reciever=$req->get("reciver");
+        $chat->save();
+        return json_encode(["status"=>1]);
     }
 }
