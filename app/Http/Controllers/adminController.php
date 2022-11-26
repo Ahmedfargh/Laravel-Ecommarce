@@ -30,7 +30,7 @@ class adminController extends Controller
             $new_admin=new Admin;
             $new_admin->name=$req->input("AdminName");
             $new_admin->email=$req->input("AdminEmail");
-            $new_admin->added_by=$_SESSION["admin_id"][0]["id"];
+            $new_admin->added_by=$_SESSION["admin_id"];
             $new_admin->password=$req->input("Adminpassword");
             $new_admin->save();
             // json_encode($array);
@@ -188,5 +188,12 @@ class adminController extends Controller
         $data=$this->load_admin_data();
         $data["posts"]=DB::select("SELECT admins.name as name,posts.writer,posts.post_id,posts.wrote_on as post_date,posts.post as post_cotent from posts,admins where posts.writer=admins.id");
         return view("posts",$data);
+    }
+    function publish_post(Request $req){
+        $post=new post;
+        $post->post=$req->get("post_content");
+        $post->writer=$_SESSION["admin_id"];
+        $post->save();
+        return json_encode(["publish_post"=>"تم أرسال الرسالة لجميع الأمنز"]);
     }
 }

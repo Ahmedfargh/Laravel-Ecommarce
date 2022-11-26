@@ -202,6 +202,25 @@ function delete_category(cat_id){
         }
     });
 }
+function upload_post(text){
+    $.ajax({
+        url:"/admin/upload/posts",
+        data:{_token:$("hidden").val(),post_content:text},
+        dataType:"json",
+        success:function(data){
+            data=JSON.parse(JSON.stringify(data));
+            alert(data["publish_post"]); 
+        },
+        statusCode:{
+            404:function(){
+                alert("افحص أتصالك بالأنترنت");
+            },
+            500:function(){
+                alert("خطأ فى برمجيات الخادم");
+            }
+        }
+    });
+}
 $(document).ready(function(){
     $("#btn_add_admin").on("click",function(){
         if($("#password").val()==$("#password_confirm").val()){
@@ -291,6 +310,9 @@ $(document).ready(function(){
     });
     $("#delete_cat_product").on("click",function(){
         delete_category($("#category_class").val());
+    });
+    $("#upload_post").on("click",function(){
+        upload_post($("#upload_message").val());
     });
     ajax_contact([],"POST","json","/admin/get/count");
 });

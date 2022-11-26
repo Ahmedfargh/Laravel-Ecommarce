@@ -35,45 +35,27 @@
 
                         <div class="panel panel-success">
                             <div class="panel-heading">
-                               Message Box #1
+                                مراسلات الجميع
                             </div>
                             <div class="panel-body" style="padding: 0px;">
-                                <!---
-                                <div class="chat-widget-main">
-                                    <div class="chat-widget-left">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    </div>
-                                    <div class="chat-widget-name-left">
-                                        <h4>Amanna Seiar</h4>
-                                    </div>
-                                    <div class="chat-widget-right">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    </div>
-                                    <div class="chat-widget-name-right">
-                                        <h4>Donim Cruseia </h4>
-                                    </div>
-                                    <div class="chat-widget-left">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    </div>
-                                    <div class="chat-widget-name-left">
-                                        <h4>Amanna Seiar</h4>
-                                    </div>
-                                    <div class="chat-widget-right">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    </div>
-                                    <div class="chat-widget-name-right">
-                                        <h4>Donim Cruseia </h4>
-                                    </div>
-                                    
-                                </div>-->
+                               
                                 <div class="chat-widget-main">
                                     @foreach ($posts as $post)
-                                    <div class="chat-widget-right">
-                                        {{$post->post_cotent}}
-                                    </div>
-                                    <div class="chat-widget-name-right">
-                                        <h4>{{$post->name}} فى {{$post->post_date}} </h4>
-                                    </div>
+                                        @if ($post->writer==$_SESSION["admin_id"])
+                                            <div class="chat-widget-left">
+                                                {{$post->post_cotent}}
+                                            </div>
+                                            <div class="chat-widget-name-left">
+                                                <h4>{{$post->name}} فى {{$post->post_date}} </h4>
+                                            </div>   
+                                        @else
+                                            <div class="chat-widget-right">
+                                                {{$post->post_cotent}}
+                                            </div>
+                                            <div class="chat-widget-name-right">
+                                                <h4>{{$post->name}} فى {{$post->post_date}} </h4>
+                                            </div>
+                                        @endif
                                     @endforeach
                                 </div>
                             </div>
