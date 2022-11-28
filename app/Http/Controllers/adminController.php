@@ -8,6 +8,7 @@ use App\Models\category;
 use Illuminate\Support\Facades\DB;
 use App\Models\post;
 use App\Models\chat;
+use App\Models\order;
 /*
 *this class is to handle all admin operations
 */
@@ -209,5 +210,13 @@ class adminController extends Controller
         $chat->reciever=$req->get("reciver");
         $chat->save();
         return json_encode(["status"=>1]);
+    }
+    function get_order_pages(Request $req){
+        $data=$this->load_admin_data();
+        $data["uncheckiedOrders"]=DB::select("SELECT * FROM orders where is_checked=0");
+        $data["order_status"]=DB::select("SELECT clients.name as client_name,clients.email as client_email,clients.phone as client_phone,orders.order_status as order_status FROM orders,clients,carts where clients.id=carts.by_client and carts.cart_id=orders.cart_id ");
+        $data["ready_orders"]=DB::select("SELECT * FROM orders where order_status=1");
+        $data["shipped_order"]=DB::select("SELECT * FROM orders where order_status=2");
+        return view("orders",$data);
     }
 }

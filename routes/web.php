@@ -37,3 +37,4 @@ ROUTE::GET("/admin/posts",[adminController::class,"admin_posts"])->name("admin_p
 Route::GET("/admin/upload/posts",[adminController::class,"publish_post"])->name("add_post");
 Route::GET("/admin/get_chat",[adminController::class,"get_chat"])->name("get_chat");
 Route::GET("/admin/send/message",[adminController::Class,"send_message"])->name("send_message");
+Route::GET("/admin/orders/page",[adminController::class,"get_order_pages"])->name("orderPage");
